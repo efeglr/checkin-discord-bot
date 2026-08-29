@@ -100,33 +100,21 @@ async function saveCheckin({
 // Get user's check-in dates
 // ------------------------------------------------
 
-async function getCheckinDates(
-  guildId,
-  userId
-) {
+async function getCheckinDates(guildId, userId) {
   const result = await pool.query(
     `
-    SELECT checkin_date
+    SELECT checkin_date::text AS checkin_date
     FROM checkins
     WHERE guild_id = $1
       AND user_id = $2
     ORDER BY checkin_date ASC
     `,
-    [
-      guildId,
-      userId,
-    ]
+    [guildId, userId]
   );
 
-  return result.rows.map((row) => {
-    const date = row.checkin_date;
-
-    if (date instanceof Date) {
-      return date.toISOString().slice(0, 10);
-    }
-
-    return String(date).slice(0, 10);
-  });
+  return result.rows.map(
+    (row) => row.checkin_date
+  );
 }
 
 
@@ -218,7 +206,7 @@ async function getLeaderboardData(guildId) {
       )::INTEGER AS historical_longest,
 
       ARRAY_AGG(
-        checkins.checkin_date
+        checkins.checkin_date::text
         ORDER BY checkins.checkin_date
       )
       FILTER (
