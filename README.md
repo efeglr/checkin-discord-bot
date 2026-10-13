@@ -10,7 +10,6 @@ A Discord bot for daily accountability check-ins. Members post what they did yes
 ## Features
 
 - **`/checkin`** – opens a modal with two fields: *Yesterday* (optional) and *Today* (required). The submission is saved and posted as an embed in the channel.
-- **Daily reminder** – every day at 09:00 (configurable time zone) the bot posts a reminder with a **Check in** button that opens the same modal.
 - **`/streak`** – shows your current and longest streak (only visible to you).
 - **`/leaderboard`** – top 10 by `current` or `longest` streak, with 🥇🥈🥉 for the top three. Ties are broken by the other streak type.
 - **One check-in per day** – checking in again on the same day updates the entry instead of creating a duplicate.
